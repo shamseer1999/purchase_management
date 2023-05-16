@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::match(['GET','POST'],'/login',[HomeController::class,'login'])->name('login');
+
+Route::middleware('logged')->group(function(){
+    //dashbord
+    Route::get('/dashbord',[HomeController::class,'index'])->name('dashbord');
+
+    //coupen
+    Route::get('/coupons',[CoupenController::class,'index'])->name('coupons');
+    Route::get('/view-coupon{id}',[CoupenController::class,'view'])->name('coupon.view');
+    Route::match(['GET','POST'],'/add-coupon',[CoupenController::class,'add'])->name('coupon.add');
+
+    //logout
+    Route::get('/logout',[HomeController::class,'logout'])->name('logout');
+});
+
