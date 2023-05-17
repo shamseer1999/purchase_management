@@ -15,11 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::match(['GET','POST'],'/',[CustomerController::class,'register'])->name('customer.register');
 
 Route::match(['GET','POST'],'/login',[HomeController::class,'login'])->name('login');
+Route::match(['GET','POST'],'/customer-login',[CustomerController::class,'login'])->name('customer.login');
+
+Route::get('/customer-dashbord',[CustomerController::class,'dashbord'])->name('customer.dashbord');
+Route::post('/customer-order',[CustomerController::class,'order'])->name('customer.order');
+Route::post('/customer-order-proceed',[CustomerController::class,'order_proceed'])->name('customer.order_proceed');
+Route::get('/customer-logout',[CustomerController::class,'logout'])->name('customer.logout');
+
+Route::get('/success',function(){
+    return view('customer.success');
+})->name('success');
+Route::get('/not',function(){
+    return view('customer.not');
+})->name('not');
 
 Route::middleware('logged')->group(function(){
     //dashbord

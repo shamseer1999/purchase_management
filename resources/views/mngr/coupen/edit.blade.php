@@ -75,11 +75,13 @@
                 $("#fixed").attr("required",true);
                 $("#percent").attr("required",false);
                 $("#percent").css("display","none");
+                $("#percent").val("")
             }else{
                 $("#fixed").css("display","none");
                 $("#fixed").attr("required",false);
                 $("#percent").attr("required",true);
                 $("#percent").css("display","block");
+                $("#fixed").val("")
             }
         }
         function check()
