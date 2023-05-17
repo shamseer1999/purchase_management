@@ -31,7 +31,7 @@
                             <td>{{$item->valid_to ? date('d-m-Y',strtotime($item->valid_to)) : ''}}</td>
                             <td>
                                 <a href="{{route('coupon.view',encrypt($item->id))}}" class="btn btn-primary btn-sm" title="View">View</a>
-                                <a href="" class="btn btn-primary btn-sm" title="Edit">Edit</a>
+                                <a href="{{route('coupon.edit',encrypt($item->id))}}" class="btn btn-primary btn-sm" title="Edit">Edit</a>
                             </td>
                         </tr>
                     @endforeach
