@@ -20,10 +20,13 @@ Route::match(['GET','POST'],'/',[CustomerController::class,'register'])->name('c
 Route::match(['GET','POST'],'/login',[HomeController::class,'login'])->name('login');
 Route::match(['GET','POST'],'/customer-login',[CustomerController::class,'login'])->name('customer.login');
 
-Route::get('/customer-dashbord',[CustomerController::class,'dashbord'])->name('customer.dashbord');
-Route::post('/customer-order',[CustomerController::class,'order'])->name('customer.order');
-Route::post('/customer-order-proceed',[CustomerController::class,'order_proceed'])->name('customer.order_proceed');
-Route::get('/customer-logout',[CustomerController::class,'logout'])->name('customer.logout');
+Route::middleware('customer_logged')->group(function(){
+    Route::get('/customer-dashbord',[CustomerController::class,'dashbord'])->name('customer.dashbord');
+    Route::post('/customer-order',[CustomerController::class,'order'])->name('customer.order');
+    Route::post('/customer-order-proceed',[CustomerController::class,'order_proceed'])->name('customer.order_proceed');
+    Route::get('/customer-logout',[CustomerController::class,'logout'])->name('customer.logout');
+});
+
 
 Route::get('/success',function(){
     return view('customer.success');
@@ -41,6 +44,9 @@ Route::middleware('logged')->group(function(){
     Route::get('/view-coupon{id}',[CoupenController::class,'view'])->name('coupon.view');
     Route::match(['GET','POST'],'/add-coupon',[CoupenController::class,'add'])->name('coupon.add');
     Route::match(['GET','POST'],'/edit-coupon{id}',[CoupenController::class,'edit'])->name('coupon.edit');
+
+    //orders
+    Route::get('/orders',[OrderController::class,'index'])->name('orders');
 
     //logout
     Route::get('/logout',[HomeController::class,'logout'])->name('logout');

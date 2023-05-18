@@ -29,7 +29,8 @@
                       <input type="password" class="form-control" name="password" id="formGroupExampleInput2" placeholder="">
                     </div>
                     <div class="form-group m-2">
-                        <input type="submit" class="btn btn-primary" value="Login">
+                        <input type="submit" class="btn btn-primary" value="Login"><br>
+                        <small>You have no account ? <a href="{{route('customer.register')}}">Please register here</a></small>
                     </div>
                   </form>
             </div>

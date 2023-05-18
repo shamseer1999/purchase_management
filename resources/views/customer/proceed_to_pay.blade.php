@@ -34,15 +34,17 @@
                     <h4 class="text-center m-2">Proceed to Pay</h4>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Original Amount</label>
-                      <input type="number" class="form-control" name="original_amt" id="amt" placeholder="" value="{{$order->original_amount}}" required readonly>
+                      <input type="number" class="form-control" name="original_amt" id="amt" placeholder="" value="{{$order['original_amount']}}" required readonly>
                     </div>
                     <div class="form-group">
                       <label for="formGroupExampleInput">Discounted Rate</label>
-                      <input type="hidden" name="order_id" value="{{encrypt($order->id)}}">
-                      <input type="text" class="form-control" name="discounted_amt" id="discount" placeholder="" value="{{$order->discounted_amount}}" required readonly>
+                      <input type="hidden" name="coupon_id" value="{{encrypt($order['coupon_id'])}}">
+                      <input type="hidden" name="coupen_type" value="{{encrypt($order['coupen_type'])}}">
+                      <input type="hidden" name="discount" value="{{encrypt($order['discount'])}}">
+                      <input type="text" class="form-control" name="discounted_amt" id="discount" placeholder="" value="{{$order['discounted_amount']}}" required readonly>
                     </div>
                     <div class="form-group m-2">
-                        <input type="submit" class="btn btn-primary" value="Proceed to Pay {{$order->discounted_amount}}₹">
+                        <input type="submit" class="btn btn-primary" value="Proceed to Pay {{$order['discounted_amount']}}₹">
                     </div>
                   </form>
             </div>

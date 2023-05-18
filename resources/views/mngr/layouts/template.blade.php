@@ -15,8 +15,9 @@
         <div class="row">
             <div class="col-md-2">
                 <ul>
-                    <li><a href="{{route('coupons')}}"  class="text-decoration-none text-dark">Coupons</a></li>
-                    <li><a href="{{route('logout')}}" onclick="return confirm('Are you sure you want to logout ?')" class="text-decoration-none text-dark">Logout</a></li>
+                    <li class="mt-2"><a href="{{route('coupons')}}"  class="text-decoration-none text-dark">Coupons</a></li>
+                    <li class="mt-2"><a href="{{route('orders')}}"  class="text-decoration-none text-dark">Orders</a></li>
+                    <li class="mt-2"><a href="{{route('logout')}}" onclick="return confirm('Are you sure you want to logout ?')" class="text-decoration-none text-dark">Logout</a></li>
                 </ul>
             </div>
             <div class="col-md-10 bg-light pt-2">

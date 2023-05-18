@@ -49,19 +49,16 @@ class CustomerController extends Controller
                 'coupon_id' =>$checkCoupon->id,
                 'coupen_type' =>$checkCoupon->coupon_type,
                 'discount' =>$discount,
-                'created_by' =>$customer,
-                'order_date' =>date('Y-m-d H:i:s')
             );
 
             $checkOrder=Order::where(['coupon_id'=>$checkCoupon->id,'created_by'=>$customer])->first();
 //  dd($checkOrder);
             if(empty($checkOrder))
             {
-                $order=Order::create($order_data);
-                $data['order'] =$order;
+                $data['order'] =$order_data;
                 return view('customer.proceed_to_pay',$data);
             }else{
-                return redirect()->route('customer.dashbord')->with('danger','You are already processed this order');
+                return redirect()->route('customer.dashbord')->with('danger','This coupon is already used');
             }
 
         }else{
@@ -73,16 +70,30 @@ class CustomerController extends Controller
     {
         $validated=$request->validate([
             'original_amt'=>'required',
-            'order_id' =>'required',
+            'coupon_id' =>'required',
+            'coupen_type' =>'required',
+            'discount' =>'required',
             'discounted_amt' =>'required'
         ]);
-        $orderId=decrypt($validated['order_id']);
-        $editdata=Order::find($orderId);
+        $couponId=decrypt($validated['coupon_id']);
+        $couponType=decrypt($validated['coupen_type']);
+        $discount=decrypt($validated['discount']);
 
-        if($editdata)
+        $order_data=array(
+            'original_amount'=>$validated['original_amt'],
+            'discounted_amount'=>$validated['discounted_amt'],
+            'coupon_id'=>$couponId,
+            'coupen_type'=>$couponType,
+            'discount'=>$discount,
+            'created_by'=>auth()->guard('customer')->user()->id,
+            'order_date'=>date('Y-m-d H:i:s'),
+            'payment_status'=>2
+        );
+
+        $order=Order::create($order_data);
+
+        if($order)
         {
-            $editdata->payment_status =2;
-            $editdata->save();
             return redirect()->route('success');
         }
         return redirect()->route('not');
